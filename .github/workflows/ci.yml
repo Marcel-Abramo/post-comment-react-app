@@ -3,7 +3,7 @@ name: CI
 on: [push]
 jobs:
     build-test:
-        run-on: ubuntu-20.04
+        runs-on: ubuntu-20.04
         steps:
 
             - name: Checkout
@@ -14,3 +14,12 @@ jobs:
               with:
                 start: 'npm run dev'
                 build: 'npm run build'
+
+            - uses: actions/upload-arctifact@v3
+              if: always()
+              with:
+                name: Cypress Results
+                path: |
+                    cypress/screenshots
+                    cypress/videos
+                    cypress/results
